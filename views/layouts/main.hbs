@@ -3,8 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <title>{{title}}</title>
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-    {{{body}}}
+    <div id="page-content">
+        <header>
+            <ul>
+                <li><a href="/catalog">Catalog</a></li>
+            </ul>
+        </header>
+        
+        <main>
+            {{{body}}}
+        </main>
+
+        <footer>Lia Ilieva-Petrova &copy; 2022</footer>
+    </div>
 </body>
+
 </html>
