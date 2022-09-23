@@ -41,8 +41,7 @@ html {
 }
 
 #page-content>header {
-    background-color: rgb(168, 102, 168);
-    color: pink;
+
 }
 
 #page-content>main {
@@ -57,9 +56,8 @@ html {
     padding: 16px;
     text-align: center;
     font-weight: bold;
-    background-color:  rgb(168, 102, 168);
-    color: pink
-};
+}
+
 .title-logo img {
     height: 64px;
 }
@@ -70,9 +68,4 @@ html {
     margin: 32px;
     background-color: hsl(var(--action-color), var(--action-s), 25%);
     box-shadow: var(--shadow);
-}
-
-h1 {
-    background-color: rgb(168, 102, 168);
-    color: pink;
 }

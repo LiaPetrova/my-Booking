@@ -1,10 +1,1 @@
-[
-    {
-        "id": "1234",
-        "name": "Lovely Room",
-        "description": "Nice and cozy",
-        "city": "Plovdiv",
-        "beds": 2,
-        "price": 130
-    }
-]
+[{"id":"1234","name":"Lovely Room","description":"Nice and cozy","city":"Plovdiv","beds":2,"price":130,"imageUrl":"../static/assets/room1.jpg"},{"id":"0e35bc","name":"Luxury Room","description":"Very spacious and pleasant room","city":"Budapest","beds":1,"price":150,"imageUrl":"/static/assets/room2.jpg"}]
