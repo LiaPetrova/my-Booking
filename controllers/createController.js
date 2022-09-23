@@ -14,8 +14,9 @@ router.post('/', async (req, res) => {
         const result = await create(req.body);
         res.redirect('/catalog/' + result.id);
     } catch (err) {
-        res.render('/create', {
-            title: 'Request Error'
+        res.render('create', {
+            title: 'Request Error',
+            error: err.message.split('\n')
         });
     }
 });
