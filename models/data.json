@@ -25,5 +25,14 @@
     "beds": 2,
     "price": 90,
     "imageUrl": "/static/assets/room3.jpg"
+  },
+  {
+    "id": "041f2f",
+    "name": "My ",
+    "description": "dfdfd",
+    "city": "jsjk",
+    "beds": 1,
+    "price": 23,
+    "imageUrl": "kdfjklkd"
   }
 ]
