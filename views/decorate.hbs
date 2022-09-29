@@ -1,0 +1,27 @@
+<section id="facility-section">
+    <h1 class="item">{{room.name}} - Details</h1> 
+
+    <div class="item padded">
+        <main class="layout right large">
+
+            <div class="col">
+                <img src="{{room.imageUrl}}" alt="room" class="img-large">
+            </div>
+
+            <div class="content pad-med">
+                <p>Facilities:</p>
+
+                <form action="/facility/{{room._id}}/decorateRoom" method="post">
+                <ul class="catalog">
+                    {{#each facilities}}
+                    <li><label><input type="checkbox" name="{{_id}}">{{label}}  <img src="{{iconUrl}}" class="facility-icon" alt="icon"></label></li>
+                    {{/each}}
+                </ul>
+                <button class="action cta">Confirm Facilities</button>
+                </form>
+            </div>
+
+        </main>
+    </div>
+</section>
+ 
