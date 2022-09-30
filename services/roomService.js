@@ -5,7 +5,7 @@ function getAll() {
 }
 
 function getById (id) {
-    return Room.findById(id).lean();
+    return Room.findById(id).populate('facilities', 'label iconUrl').lean();
     // Room.find({_id: id});
 }
 

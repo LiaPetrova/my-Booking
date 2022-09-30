@@ -41,7 +41,7 @@ facilityController.get('/:roomId/decorateRoom', async (req, res) => {
 facilityController.post('/:roomId/decorateRoom', async (req, res) => {
    await addFacilities(req.params.roomId, Object.keys(req.body));
 
-    res.redirect('/facility/' + req.params.roomId + '/decorateRoom')
+    res.redirect('/catalog/' + req.params.roomId);
 });
 
 module.exports = facilityController;
