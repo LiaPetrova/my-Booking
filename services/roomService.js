@@ -32,9 +32,38 @@ async function create (roomData, ownerId) {
     return result;
 }
 
+async function update(roomId, roomData) {
+    const room = await Room.findById(roomId);
+
+    const missing = Object.entries(roomData).filter(([k, v]) => !v);
+    if(missing.length > 0) {
+        throw new Error(missing.map(m => {
+            const field = m[0][0].toUpperCase() + m[0].slice(1);
+           return  `${field} is required!`})
+            .join('\n'));
+    }
+
+    room.name = roomData.name;
+    room.description = roomData.description;
+    room.city = roomData.city;
+    room.beds = Number(roomData.beds);
+    room.price = Number(roomData.price);
+    room.imgUrl = roomData.imgUrl;
+
+
+    await room.save();
+
+    return room;
+} 
+
+async function deleteById (roomId) {
+    return Room.findByIdAndRemove(roomId);
+}
 
 module.exports = {
     getAll,
     getById,
-    create
+    create,
+    update,
+    deleteById
 };
