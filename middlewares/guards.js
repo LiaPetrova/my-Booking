@@ -20,7 +20,7 @@ function isGuest () {
 
 function hasRole (role) {
     return (req, res, next) => {
-        if(res.user == undefined || req.user.roles.includes(role) == false) {
+        if(req.user == undefined || req.user.roles.includes(role) == false) {
             res.redirect('/auth/login');
         } else {
             next();
@@ -30,5 +30,6 @@ function hasRole (role) {
 
 module.exports = {
     hasUser,
-    isGuest
+    isGuest,
+    hasRole
 };

@@ -25,5 +25,8 @@
     "url": "https://github.com/LiaPetrova/my-Booking/issues"
   },
   "homepage": "https://github.com/LiaPetrova/my-Booking#readme",
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
 }
