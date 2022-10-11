@@ -6,12 +6,12 @@ const roomSchema = new Schema({
     name: { type: String, required: true },
     description: { type: String, required: true },
     city: { type: String, required: true },
-    beds: { type: Number, required: true, min: 1 },
-    price: { type: Number, required: true, min: 0.01 },
+    beds: { type: Number, required: true, min: [1, 'Must supply at least one bed'] },
+    price: { type: Number, required: true, min: [0.01, 'Price must be a positive number'] },
     imageUrl: { type: String, validate: {
         validator: (value) => URL_REGEX.test(value),
         message: (props) => {
-             return `${props.value} is not a valid imgage Url`;
+             return `${props.value} is not a valid image Url`;
             }
         } 
     },

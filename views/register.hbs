@@ -6,19 +6,20 @@
 
         <main class="item align-center">
 
-            <form action="/auth/register" method="post" class="layout left large">
             {{#if error}}
             <div class="error-box">
-                {{#each error}}
-                <p>{{msg}}</p>
+                {{#each error.messages}}
+                <p>{{this}}</p>
                 {{/each}}
                 </div>
             {{/if}}
+            
+            <form action="/auth/register" method="post" class="layout left large">
                 <div class="aligned">
                     
-                    <label><span>Username</span><input {{#if fields.username}} class="field-error" {{/if}} type="text" name="username" value="{{body.username}}"></label>
-                    <label><span>Password</span><input {{#if fields.password}} class="field-error" {{/if}} type="password" name="password"></label>
-                    <label><span>Repeat</span><input {{#if fields.repass}} class="field-error" {{/if}} type="password" name="repass"></label>
+                    <label><span>Username</span><input {{#if error.fields.username}} class="field-error" {{/if}} type="text" name="username" value="{{body.username}}"></label>
+                    <label><span>Password</span><input {{#if error.fields.password}} class="field-error" {{/if}} type="password" name="password"></label>
+                    <label><span>Repeat</span><input {{#if error.fields.repass}} class="field-error" {{/if}} type="password" name="repass"></label>
                     
                 </div>
                     <input type="submit" class="cta action" value="Sign Up">

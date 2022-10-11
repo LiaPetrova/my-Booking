@@ -1,5 +1,6 @@
 const { login, register } = require('../services/authService');
 const { body, validationResult } = require('express-validator');
+const { parseError } = require('../utils/parser');
 
 const authController = require('express').Router();
 
@@ -9,16 +10,21 @@ authController.get('/login', (req, res) => {
     });
 });
 
-authController.post('/login', async (req, res) => {
+authController.post('/login', 
+body(['username', 'password']).trim(),
+async (req, res) => {
     try {
         const result = await login(req.body.username.trim(), req.body.password.trim());
         console.log(result);
         attachToken(req, res, result);
         res.redirect('/');
-    } catch (err) {
+    } catch (error) {
         res.render('login', {
             title: 'Login',
-            error: err.message.split('\n')
+            body: {
+                username: req.body.username
+            },
+            error: parseError(error)
         }); 
     }
 });
@@ -36,7 +42,7 @@ authController.post('/register',
         .isAlphanumeric().withMessage('Username may contain only english letters and numbers'),
     body('password')
         .trim()
-        .isLength( { min: 3 } ).withMessage('Password must contain at least 3 characters'),
+        .isLength( { min: 3 } ).withMessage('Password must contain at least 3 characters long'),
     body('repass')
         .trim()
         .custom(( value, { req }) => value === req.body.password).withMessage('Passwords don\'t match'),
@@ -54,14 +60,12 @@ authController.post('/register',
             attachToken(req, res, result);
             res.redirect('/');
         } catch (error) {
-            const fields = Object.fromEntries(error.map(e => [e.param, e.param]));
             res.render('register', {
                 title: 'Register',
                 body: {
                     username: req.body.username
                 },
-                error,
-                fields
+                error: parseError(error)
             });     
         }
 });

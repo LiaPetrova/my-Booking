@@ -68,6 +68,7 @@ html {
     margin: 32px;
     background-color: hsl(var(--action-color), var(--action-s), 25%);
     box-shadow: var(--shadow);
+    text-align: center;
 }
 
 .field-error {

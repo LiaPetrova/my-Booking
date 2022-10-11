@@ -1,5 +1,6 @@
 const { request } = require('express');
 const { getById, update, deleteById } = require('../services/roomService');
+const { parseError } = require('../utils/parser');
 
 const roomController = require('express').Router();
 
@@ -27,12 +28,13 @@ roomController.post('/:id/edit', async (req, res) => {
     try {
         const result = await update(roomId,req.body);
         res.redirect('/catalog/' + result._id);
-    } catch (err) {
+    } catch (error) {
         res.render('edit', {
             title: 'Edit Accomodation',
-            error: err.message.split('\n'),
-            room: req.body
+            error: parseError(error),
+            room
         });
+        console.log(parseError(error));
     }
 });
 
@@ -61,11 +63,11 @@ roomController.post('/:id/delete', async (req, res) => {
     try {
         const result = await deleteById(roomId);
         res.redirect('/catalog');
-    } catch (err) {
+    } catch (error) {
         res.render('delete', {
             title: 'Delete Accomodation',
-            error: err.message.split('\n'),
-            room: req.body
+            error: parseError(error),
+            room
         });
     }
 });
