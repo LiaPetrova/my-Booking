@@ -2,8 +2,8 @@ const bcrypt = require('bcrypt');
 const User = require('../models/User');
 
 async function register (username, password) {
-    const excisting = await User.findOne({ username }).collation({ locale: 'en', strength: 2});
-    if(excisting) {
+    const existing = await User.findOne({ username }).collation({ locale: 'en', strength: 2});
+    if(existing) {
         throw new Error('Username is taken');
     }
 

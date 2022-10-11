@@ -1,4 +1,5 @@
 const { login, register } = require('../services/authService');
+const { body, validationResult } = require('express-validator');
 
 const authController = require('express').Router();
 
@@ -28,26 +29,41 @@ authController.get('/register', (req, res) => {
     });
 });
 
-authController.post('/register', async (req, res) => {
+authController.post('/register', 
+    body('username')
+        .trim()
+        .notEmpty().withMessage('Username is required!').bail()
+        .isAlphanumeric().withMessage('Username may contain only english letters and numbers'),
+    body('password')
+        .trim()
+        .isLength( { min: 3 } ).withMessage('Password must contain at least 3 characters'),
+    body('repass')
+        .trim()
+        .custom(( value, { req }) => value === req.body.password).withMessage('Passwords don\'t match'),
 
-    try {
+        async (req, res) => {
+        try {
 
-        if(req.body.username.trim() == '' || req.body.password.trim() == '') {
-            throw new Error('All fields are required!');
+            const { errors } = validationResult(req);
+            // console.log(errors);
+
+            if(errors.length > 0) {
+                throw errors;
+            }
+            const result = await register(req.body.username, req.body.password);
+            attachToken(req, res, result);
+            res.redirect('/');
+        } catch (error) {
+            const fields = Object.fromEntries(error.map(e => [e.param, e.param]));
+            res.render('register', {
+                title: 'Register',
+                body: {
+                    username: req.body.username
+                },
+                error,
+                fields
+            });     
         }
-
-        if(req.body.password.trim() !== req.body.repass.trim()) {
-            throw new Error('Passwords don\'t match!');
-        }
-        const result = await register(req.body.username.trim(), req.body.password.trim());
-        attachToken(req, res, result);
-        res.redirect('/');
-    } catch (err) {
-        res.render('register', {
-            title: 'Register',
-            error: err.message.split('\n')
-        }); 
-    }
 });
 
 authController.get('/logout', (req, res) => {
